@@ -183,7 +183,7 @@ func (cmd *Command) removeTokenChain() {
 }
 
 func (cmd *Command) syncTokenChain() {
-	response, err := cmd.c.SyncTokenChain(cmd.token, cmd.addr)
+	response, err := cmd.c.SyncTokenChain(cmd.token, cmd.receiverAddr)
 	if err != nil {
 		cmd.log.Error("Failed to Sync token chain", "err", err)
 		return
