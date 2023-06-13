@@ -26,3 +26,13 @@ func (s *Server) APIRemoveTokenChain(req *ensweb.Request) *ensweb.Result {
 	removeReply := s.c.RemoveTokenChain(&removeReq)
 	return s.RenderJSON(req, removeReply, http.StatusOK)
 }
+
+func (s *Server) APISyncTokenChainFromAddress(req *ensweb.Request) *ensweb.Result {
+	var syncReq model.TCSyncRequest
+	err := s.ParseJSON(req, &syncReq)
+	if err != nil {
+		return s.BasicResponse(req, false, "Invalid input", nil)
+	}
+	syncReply := s.c.SyncTokenChainFromAddress(&syncReq)
+	return s.RenderJSON(req, syncReply, http.StatusOK)
+}

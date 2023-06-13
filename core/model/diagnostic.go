@@ -18,3 +18,8 @@ type TCRemoveRequest struct {
 type TCRemoveReply struct {
 	BasicResponse
 }
+
+type TCSyncRequest struct {
+	Token   string
+	Address string
+}

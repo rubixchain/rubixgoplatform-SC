@@ -64,6 +64,7 @@ const (
 	SetupDBCmd            string = "setupdb"
 	GetTxnDetailsCmd      string = "gettxndetails"
 	RemoveTokenChainCmd   string = "removetokenchain"
+	SyncTokenChainCmd     string = "synctokenchain"
 )
 
 var commands = []string{VersionCmd,
@@ -94,7 +95,8 @@ var commands = []string{VersionCmd,
 	CommitDataTokenCmd,
 	SetupDBCmd,
 	GetTxnDetailsCmd,
-	RemoveTokenChainCmd}
+	RemoveTokenChainCmd,
+	SyncTokenChainCmd}
 var commandsHelp = []string{"To get tool version",
 	"To get help",
 	"To run the rubix core",
@@ -123,7 +125,8 @@ var commandsHelp = []string{"To get tool version",
 	"This command will commit data token token",
 	"This command will setup the DB",
 	"This command will get transaction details",
-	"this command will remove the tokenchain for the specific quorum"}
+	"this command will remove the tokenchain for the specific quorum",
+	"This command will sync the tokenchain of a provided token"}
 
 type Command struct {
 	cfg          config.Config
@@ -475,6 +478,8 @@ func Run(args []string) {
 		cmd.getTxnDetails()
 	case RemoveTokenChainCmd:
 		cmd.removeTokenChain()
+	case SyncTokenChainCmd:
+		cmd.syncTokenChain()
 	default:
 		cmd.log.Error("Invalid command")
 	}

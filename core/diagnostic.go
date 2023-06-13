@@ -46,3 +46,30 @@ func (c *Core) RemoveTokenChain(removeReq *model.TCRemoveRequest) *model.TCRemov
 	removeReply.Message = "Successfully removed token chain "
 	return removeReply
 }
+
+func (c *Core) SyncTokenChainFromAddress(syncReq *model.TCSyncRequest) *model.BasicResponse {
+	reply := model.BasicResponse{
+		Status: false,
+	}
+	tokentype := token.RBTTokenType
+	if c.testNet {
+		tokentype = token.TestTokenType
+	}
+	addr := syncReq.Address
+	token := syncReq.Token
+	peerConnection, err := c.getPeer(addr)
+	if err != nil {
+		c.log.Error("Could not connec tto address", addr, "err", err)
+		reply.Message = "Could not connec tto address : " + addr + " err : " + err.Error()
+		return &reply
+	}
+	err = c.syncTokenChainFrom(peerConnection, "", token, tokentype)
+	if err != nil {
+		c.log.Error("Could not sync token chain for token ", token, "err", err)
+		reply.Message = "Could not sync token chain for token : " + token + " err : " + err.Error()
+		return &reply
+	}
+	reply.Status = true
+	reply.Message = "TokenChain synced successfully"
+	return &reply
+}

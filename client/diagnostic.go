@@ -29,3 +29,17 @@ func (c *Client) RemoveTokenChain(token string) (*model.TCRemoveReply, error) {
 	}
 	return &removeReply, nil
 }
+
+func (c *Client) SyncTokenChain(token string, address string) (*model.BasicResponse, error) {
+	syncReq := &model.TCSyncRequest{
+		Token:   token,
+		Address: address,
+	}
+
+	var syncReply model.BasicResponse
+	err := c.sendJSONRequest("POST", server.APISyncTokenChainFromAddress, nil, syncReq, &syncReply)
+	if err != nil {
+		return nil, err
+	}
+	return &syncReply, nil
+}
