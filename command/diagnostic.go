@@ -179,7 +179,7 @@ func (cmd *Command) removeTokenChain() {
 		cmd.log.Error("Failed to remove token chain", "msg", response.Message)
 		return
 	}
-	cmd.log.Info("Token chain removed successfully!")
+	cmd.log.Info("Token chain removed successfully!", cmd.token)
 }
 
 func (cmd *Command) syncTokenChain() {
