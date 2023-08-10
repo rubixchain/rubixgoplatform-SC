@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/EnsurityTechnologies/ensweb"
@@ -116,7 +115,7 @@ func (c *Core) quorumRBTConsensus(req *ensweb.Request, did string, qdc didcrypto
 		return c.l.RenderJSON(req, &crep, http.StatusOK)
 	}
 	//check if token has multiple pins
-	ti := sc.GetTransTokenInfo()
+	/* ti := sc.GetTransTokenInfo()
 	results := make([]MultiPinCheckRes, len(ti))
 	var wg sync.WaitGroup
 	for i := range ti {
@@ -135,7 +134,7 @@ func (c *Core) quorumRBTConsensus(req *ensweb.Request, did string, qdc didcrypto
 			crep.Message = "Token has multiple owners"
 			return c.l.RenderJSON(req, &crep, http.StatusOK)
 		}
-	}
+	} */
 	// check token ownership
 	if !c.validateTokenOwnership(cr, sc) {
 		c.log.Error("Token ownership check failed")
@@ -347,7 +346,7 @@ func (c *Core) updateReceiverToken(req *ensweb.Request) *ensweb.Result {
 		}
 	}
 
-	results := make([]MultiPinCheckRes, len(sr.TokenInfo))
+	/* results := make([]MultiPinCheckRes, len(sr.TokenInfo))
 	var wg sync.WaitGroup
 	for i, ti := range sr.TokenInfo {
 		t := ti.Token
@@ -372,7 +371,7 @@ func (c *Core) updateReceiverToken(req *ensweb.Request) *ensweb.Result {
 			crep.Message = "Token has multiple owners"
 			return c.l.RenderJSON(req, &crep, http.StatusOK)
 		}
-	}
+	} */
 
 	err = c.w.TokensReceived(did, sr.TokenInfo, b)
 	if err != nil {
