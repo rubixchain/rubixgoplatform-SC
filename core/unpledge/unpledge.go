@@ -86,7 +86,7 @@ func InitUnPledge(s storage.Storage, w *wallet.Wallet, testNet bool, dir string,
 }
 
 func (up *UnPledge) RunUnpledge() {
-	go up.runUnpledge()
+	//go up.runUnpledge()
 }
 
 func sha2Hash256(input string) string {
@@ -131,7 +131,7 @@ func (up *UnPledge) AddUnPledge(t string) {
 		up.log.Error("Error adding token "+t+" to unpledge list", "err", err)
 		return
 	}
-	go up.runUnpledge()
+	//go up.runUnpledge()
 }
 
 func (up *UnPledge) runUnpledge() {
